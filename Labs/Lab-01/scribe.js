@@ -18,3 +18,4 @@ if (!apiKey) {
   console.error("ERROR: OPENROUTER_API_KEY not found");
   process.exit(1);
 }
+// this is an example
