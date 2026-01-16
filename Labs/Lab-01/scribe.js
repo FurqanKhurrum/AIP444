@@ -28,7 +28,7 @@ try {
   diff = execSync("git diff --staged", { encoding: "utf8" });
 } catch (err) {
   // If git fails (not a repo, git not installed, etc.)
-  console.error("❌ Error: Failed to run 'git diff --staged'");
+  console.error("ERROR: Failed to run 'git diff --staged'");
   process.exit(1);
 }
 
