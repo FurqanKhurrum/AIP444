@@ -5,7 +5,9 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "child_process";
+import OpenAI from "openai";
 
+const is_creative = process.argv.includes("--creative");
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -38,3 +40,40 @@ if (!diff.trim()) {
 }
 
 console.log(`✅ Diff found: ${diff.length} characters`);
+
+// --- OpenRouter via OpenAI SDK ---
+const client = new OpenAI({
+    apiKey,
+    baseURL: "https://openrouter.ai/api/v1",
+  });
+  
+  const systemPrompt =
+    "You are an assistant in a CLI tool that writes semantic Git commit messages. " +
+    "You will be given a git diff of staged changes. " +
+    "Return ONLY ONE commit message line in Conventional Commits format " +
+    "(e.g., feat: add logging). No markdown, no quotes, no explanation.";
+  
+  try {
+    const response = await client.chat.completions.create({
+      model: "google/gemini-2.0-flash-exp:free",
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: diff },
+      ],
+      temperature: 0.2,
+    });
+  
+    const commitMsg = response.choices?.[0]?.message?.content?.trim();
+  
+    if (!commitMsg) {
+      console.error("❌ Error: LLM returned an empty response");
+      process.exit(1);
+    }
+  
+    // Print only the commit message (after the diff status line)
+    console.log(commitMsg);
+  } catch (err) {
+    console.error("❌ Error: Failed to generate commit message via OpenRouter");
+    console.error(String(err?.message || err));
+    process.exit(1);
+  }
