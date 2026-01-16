@@ -47,20 +47,33 @@ const client = new OpenAI({
     baseURL: "https://openrouter.ai/api/v1",
   });
   
-  const systemPrompt =
-    "You are an assistant in a CLI tool that writes semantic Git commit messages. " +
-    "You will be given a git diff of staged changes. " +
-    "Return ONLY ONE commit message line in Conventional Commits format " +
-    "(e.g., feat: add logging). No markdown, no quotes, no explanation.";
+  const systemPromptDefault =
+  "You are an assistant in a CLI tool that writes semantic Git commit messages. " +
+  "You will be given a git diff of staged changes. " +
+  "Return ONLY ONE commit message line in Conventional Commits format " +
+  "(e.g., feat: add logging). No markdown, no quotes, no explanation.";
   
+  const systemPromptCreative =
+  "You are a 17th Century Pirate living inside a Git CLI tool. " +
+  "You will be given a git diff of staged changes. " +
+  "Return ONLY ONE SINGLE-LINE commit message. " +
+  "It MUST still start with a Conventional Commits type like feat:, fix:, docs:, refactor:, test:, chore:. " +
+  "After the type, write the rest in pirate slang (arr!, matey, etc.). " +
+  "No markdown, no quotes, no extra lines.";
+
+  const systemPrompt = is_creative ? systemPromptCreative : systemPromptDefault;
+  const temperature = is_creative ? 1.2 : 0.1; // creative mode 0.9–2.0
+
   try {
     const response = await client.chat.completions.create({
-      model: "google/gemini-2.0-flash-exp:free",
+      //model: "google/gemini-2.0-flash-exp:free",
+      model: "meta-llama/llama-3.2-3b-instruct:free",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: diff },
       ],
-      temperature: 0.2,
+      temperature,
+      
     });
   
     const commitMsg = response.choices?.[0]?.message?.content?.trim();
