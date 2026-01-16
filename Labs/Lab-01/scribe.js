@@ -66,14 +66,13 @@ const client = new OpenAI({
 
   try {
     const response = await client.chat.completions.create({
-      //model: "google/gemini-2.0-flash-exp:free",
-      model: "meta-llama/llama-3.2-3b-instruct:free",
+      model: "google/gemini-2.0-flash-exp:free",
+      //model: "meta-llama/llama-3.2-3b-instruct:free",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: diff },
       ],
       temperature,
-      
     });
   
     const commitMsg = response.choices?.[0]?.message?.content?.trim();
