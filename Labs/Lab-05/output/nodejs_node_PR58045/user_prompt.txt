@@ -1,0 +1,123 @@
+Please review this Pull Request.
+
+# Code Changes (DIFF)
+
+```diff
+diff --git a/deps/ada/ada.cpp b/deps/ada/ada.cpp
+index 854def2adb3c32..f6704596ced611 100644
+--- a/deps/ada/ada.cpp
++++ b/deps/ada/ada.cpp
+@@ -1,4 +1,4 @@
+-/* auto-generated on 2025-03-30 13:24:42 -0400. Do not edit! */
++/* auto-generated on 2025-04-24 20:04:09 -0400. Do not edit! */
+ /* begin file src/ada.cpp */
+ #include "ada.h"
+ /* begin file src/checkers.cpp */
+@@ -11636,15 +11636,20 @@ ada_really_inline void parse_prepared_path(std::string_view input,
+     // Note: input cannot be empty, it must at least contain one character ('.')
+     // Note: we know that '\' is not present.
+     if (input[0] != '.') {
+-      size_t slashdot = input.find("/.");
+-      if (slashdot == std::string_view::npos) {  // common case
+-        trivial_path = true;
+-      } else {  // uncommon
+-        // only three cases matter: /./, /.. or a final /
+-        trivial_path =
+-            !(slashdot + 2 == input.size() || input[slashdot + 2] == '.' ||
+-              input[slashdot + 2] == '/');
++      size_t slashdot = 0;
++      bool dot_is_file = true;
++      for (;;) {
++        slashdot = input.find("/.", slashdot);
++        if (slashdot == std::string_view::npos) {  // common case
++          break;
++        } else {  // uncommon
++          // only three cases matter: /./, /.. or a final /
++          slashdot += 2;
++          dot_is_file &= !(slashdot == input.size() || input[slashdot] == '.' ||
++                           input[slashdot] == '/');
++        }
+       }
++      trivial_path = dot_is_file;
+     }
+   }
+   if (trivial_path) {
+@@ -15093,15 +15098,20 @@ inline void url_aggregator::consume_prepared_path(std::string_view input) {
+     // Note: input cannot be empty, it must at least contain one character ('.')
+     // Note: we know that '\' is not present.
+     if (input[0] != '.') {
+-      size_t slashdot = input.find("/.");
+-      if (slashdot == std::string_view::npos) {  // common case
+-        trivial_path = true;
+-      } else {  // uncommon
+-        // only three cases matter: /./, /.. or a final /
+-        trivial_path =
+-            !(slashdot + 2 == input.size() || input[slashdot + 2] == '.' ||
+-              input[slashdot + 2] == '/');
++      size_t slashdot = 0;
++      bool dot_is_file = true;
++      for (;;) {
++        slashdot = input.find("/.", slashdot);
++        if (slashdot == std::string_view::npos) {  // common case
++          break;
++        } else {  // uncommon
++          // only three cases matter: /./, /.. or a final /
++          slashdot += 2;
++          dot_is_file &= !(slashdot == input.size() || input[slashdot] == '.' ||
++                           input[slashdot] == '/');
++        }
+       }
++      trivial_path = dot_is_file;
+     }
+   }
+   if (trivial_path && is_at_path()) {
+diff --git a/deps/ada/ada.h b/deps/ada/ada.h
+index 821066ac6e9dfc..071a54e9fad38d 100644
+--- a/deps/ada/ada.h
++++ b/deps/ada/ada.h
+@@ -1,4 +1,4 @@
+-/* auto-generated on 2025-03-30 13:24:42 -0400. Do not edit! */
++/* auto-generated on 2025-04-24 20:04:09 -0400. Do not edit! */
+ /* begin file include/ada.h */
+ /**
+  * @file ada.h
+@@ -10502,14 +10502,14 @@ constructor_string_parser<regex_provider>::parse(std::string_view input) {
+ #ifndef ADA_ADA_VERSION_H
+ #define ADA_ADA_VERSION_H
+ 
+-#define ADA_VERSION "3.2.2"
++#define ADA_VERSION "3.2.3"
+ 
+ namespace ada {
+ 
+ enum {
+   ADA_VERSION_MAJOR = 3,
+   ADA_VERSION_MINOR = 2,
+-  ADA_VERSION_REVISION = 2,
++  ADA_VERSION_REVISION = 3,
+ };
+ 
+ }  // namespace ada
+
+```
+
+# Discussion Comments
+
+<comments>
+<comment username="nodejs-github-bot" date="2025-04-27T00:37:29Z">
+Review requested:
+
+- [ ] @nodejs/security-wg
+- [ ] @nodejs/url
+</comment>
+
+<comment username="nodejs-github-bot" date="2025-04-27T01:06:27Z">
+CI: https://ci.nodejs.org/job/node-test-pull-request/66478/
+</comment>
+
+<comment username="nodejs-github-bot" date="2025-04-29T00:42:30Z">
+Landed in 3a19a713123453669755d03424744df6b675397e
+</comment>
+</comments>
+
+Please provide your analysis following the specified format.

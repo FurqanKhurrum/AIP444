@@ -1,0 +1,7 @@
+[
+  {
+    "username": "jdalton",
+    "body": "This is a limitation of a  _.template method that creates a function to evaluate. Don’t use that method and instead use  logic less template library instead.",
+    "date": "2024-12-08T14:51:26Z"
+  }
+]

@@ -1,0 +1,85 @@
+Please review this Pull Request.
+
+# Code Changes (DIFF)
+
+```diff
+diff --git a/doc/api/cli.md b/doc/api/cli.md
+index 88972b74e8cd62..757efffc02243e 100644
+--- a/doc/api/cli.md
++++ b/doc/api/cli.md
+@@ -1154,7 +1154,7 @@ This feature requires `--allow-worker` if used with the [Permission Model][].
+ added: v22.7.0
+ -->
+ 
+-> Stability: 1.1 - Active development
++> Stability: 1.2 - Release candidate
+ 
+ Enables the transformation of TypeScript-only syntax into JavaScript code.
+ Implies `--enable-source-maps`.
+@@ -1767,7 +1767,7 @@ changes:
+     description: Type stripping is enabled by default.
+ -->
+ 
+-> Stability: 1.1 - Active development
++> Stability: 1.2 - Release candidate
+ 
+ Disable experimental type-stripping for TypeScript files.
+ For more information, see the [TypeScript type-stripping][] documentation.
+diff --git a/doc/api/module.md b/doc/api/module.md
+index 5729780a70a4f3..a28786ecbdf18b 100644
+--- a/doc/api/module.md
++++ b/doc/api/module.md
+@@ -239,7 +239,7 @@ added:
+   - v22.13.0
+ -->
+ 
+-> Stability: 1.1 - Active development
++> Stability: 1.2 - Release candidate
+ 
+ * `code` {string} The code to strip type annotations from.
+ * `options` {Object}
+diff --git a/doc/api/process.md b/doc/api/process.md
+index 9319ec2c0db9be..acf656ab201f36 100644
+--- a/doc/api/process.md
++++ b/doc/api/process.md
+@@ -2052,7 +2052,7 @@ added:
+  - v22.10.0
+ -->
+ 
+-> Stability: 1.1 - Active development
++> Stability: 1.2 - Release candidate
+ 
+ * {boolean|string}
+ 
+diff --git a/doc/api/typescript.md b/doc/api/typescript.md
+index bac78a775f1ae9..ff111dc6885ff0 100644
+--- a/doc/api/typescript.md
++++ b/doc/api/typescript.md
+@@ -12,7 +12,7 @@ changes:
+ 
+ <!--introduced_in=v22.6.0-->
+ 
+-> Stability: 1.1 - Active development
++> Stability: 1.2 - Release candidate
+ 
+ ## Enabling
+ 
+
+```
+
+# Discussion Comments
+
+<comments>
+<comment username="nodejs-github-bot" date="2025-04-01T12:11:05Z">
+Review requested:
+
+- [ ] @nodejs/loaders
+- [ ] @nodejs/typescript
+</comment>
+
+<comment username="nodejs-github-bot" date="2025-04-03T12:15:42Z">
+Landed in 3984bc1a368ed473dccaa335c48c3227ace2f9ce
+</comment>
+</comments>
+
+Please provide your analysis following the specified format.

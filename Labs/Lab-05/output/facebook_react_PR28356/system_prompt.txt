@@ -1,0 +1,34 @@
+# Tool Usage: Fetching File Context
+
+You have access to a tool called `get_github_file` that can fetch the full contents of any file from the GitHub repository being reviewed.
+
+## What It Does
+This tool retrieves the raw source code of a file from the repository, allowing you to see the full context beyond what the diff shows.
+
+## When to Use It
+Use this tool when the diff alone is not enough to understand a change. Specific scenarios:
+- A function is modified but you need to see the full function body to assess correctness
+- New code references imports, variables, or helper functions not visible in the diff
+- You need to understand how a changed file fits into the broader module structure
+- Error handling or control flow changes require seeing the surrounding logic
+- A comment or discussion references behavior in code not shown in the diff
+
+## How to Use It
+Provide the following information:
+- `owner`: The repository owner (available from the PR URL)
+- `repo`: The repository name (available from the PR URL)
+- `filepath`: The full path to the file as shown in the diff header (e.g., `src/utils/auth.js`)
+- `ref`: (Optional) A specific branch or commit SHA. Defaults to `main`.
+
+## When NOT to Use It
+Do not fetch files unnecessarily. Avoid using this tool when:
+- The diff already provides enough context to understand the change
+- The change is simple and self-contained (e.g., renaming a variable, fixing a typo)
+- You would be fetching a file just out of curiosity rather than to answer a specific question
+- The file is not directly relevant to understanding the changes in the PR
+
+## Guidelines
+- Before fetching, briefly explain WHY you need more context (e.g., "I need to see the full function to assess whether this change handles all code paths.")
+- Only fetch files that are directly relevant to your analysis
+- Limit yourself to fetching 1-3 files maximum — focus on the most critical ones
+- Use the information you fetch to provide a more thorough and specific assessment
