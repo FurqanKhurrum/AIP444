@@ -1,0 +1,35 @@
+[
+  {
+    "model": "openai/gpt-4o-mini",
+    "reviewer": "Security Auditor",
+    "run": 1,
+    "recall": 0.7142857142857143,
+    "precision": 1,
+    "score": 0.8571428571428572,
+    "caught": 5,
+    "expected": 7,
+    "hallucinations": 0,
+    "missed": [
+      "S5",
+      "S7"
+    ]
+  },
+  {
+    "model": "openai/gpt-4o-mini",
+    "reviewer": "Maintainability Critic",
+    "run": 1,
+    "recall": 0.5833333333333334,
+    "precision": 0.5833333333333334,
+    "score": 0.5833333333333334,
+    "caught": 7,
+    "expected": 12,
+    "hallucinations": 5,
+    "missed": [
+      "M1",
+      "M2",
+      "M5",
+      "M8",
+      "M10"
+    ]
+  }
+]

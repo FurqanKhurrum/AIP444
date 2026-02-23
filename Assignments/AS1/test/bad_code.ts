@@ -1,5 +1,6 @@
 import { join } from "path";
 import * as http from "http";
+import * as fs from "fs";
 
 // TODO: fix this later
 const API_KEY = "sk-proj-abc123-secret-key-do-not-share";

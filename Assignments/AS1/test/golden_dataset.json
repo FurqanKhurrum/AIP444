@@ -1,0 +1,139 @@
+{
+    "securityAuditor": [
+      {
+        "id": "S1",
+        "description": "Hardcoded API key",
+        "line": 5,
+        "severity": "critical",
+        "keywords": ["api_key", "api key", "hardcoded", "sk-proj", "secret"]
+      },
+      {
+        "id": "S2",
+        "description": "Hardcoded database password",
+        "line": 6,
+        "severity": "critical",
+        "keywords": ["db_password", "password", "hardcoded", "admin123"]
+      },
+      {
+        "id": "S3",
+        "description": "API key passed in URL query string",
+        "line": 19,
+        "severity": "warn",
+        "keywords": ["query", "url", "api_key", "query string", "parameter"]
+      },
+      {
+        "id": "S4",
+        "description": "SQL injection via string concatenation",
+        "line": 26,
+        "severity": "critical",
+        "keywords": ["sql injection", "concatenat", "select", "parameterized", "prepared statement"]
+      },
+      {
+        "id": "S5",
+        "description": "Logging plaintext password to console",
+        "line": 69,
+        "severity": "critical",
+        "keywords": ["log", "password", "plaintext", "console.log", "credential"]
+      },
+      {
+        "id": "S6",
+        "description": "Password comparison without hashing",
+        "line": 70,
+        "severity": "warn",
+        "keywords": ["hash", "bcrypt", "comparison", "plaintext", "password"]
+      },
+      {
+        "id": "S7",
+        "description": "HTTP instead of HTTPS",
+        "line": 18,
+        "severity": "warn",
+        "keywords": ["http", "https", "unencrypted", "insecure", "tls"]
+      }
+    ],
+    "maintainabilityCritic": [
+      {
+        "id": "M1",
+        "description": "Unused import: join from path",
+        "line": 1,
+        "severity": "info",
+        "keywords": ["unused", "import", "join", "path"]
+      },
+      {
+        "id": "M2",
+        "description": "Missing import: fs used but never imported",
+        "line": 85,
+        "severity": "warn",
+        "keywords": ["missing", "import", "fs", "not imported", "undefined"]
+      },
+      {
+        "id": "M3",
+        "description": "Poor variable names x, d in fetchUserData",
+        "line": 17,
+        "severity": "warn",
+        "keywords": ["variable name", "poor name", "single-letter", "rename", "x", "d"]
+      },
+      {
+        "id": "M4",
+        "description": "Poor parameter names p, d, t in calculateDiscount",
+        "line": 57,
+        "severity": "warn",
+        "keywords": ["variable name", "poor name", "parameter", "rename", "p", "d", "t", "calculateDiscount"]
+      },
+      {
+        "id": "M5",
+        "description": "Poor parameter name u in greetUser",
+        "line": 75,
+        "severity": "warn",
+        "keywords": ["variable name", "poor name", "parameter", "rename", "u", "greetUser"]
+      },
+      {
+        "id": "M6",
+        "description": "Overuse of any type",
+        "line": 30,
+        "severity": "warn",
+        "keywords": ["any", "type", "typescript", "interface", "typed"]
+      },
+      {
+        "id": "M7",
+        "description": "Deeply nested if-statements (pyramid of doom)",
+        "line": 33,
+        "severity": "info",
+        "keywords": ["nested", "pyramid", "guard clause", "early return", "flatten"]
+      },
+      {
+        "id": "M8",
+        "description": "Useless comment that restates the code",
+        "line": 58,
+        "severity": "info",
+        "keywords": ["comment", "redundant", "useless", "restate", "calculate discount"]
+      },
+      {
+        "id": "M9",
+        "description": "Using var instead of const/let",
+        "line": 76,
+        "severity": "info",
+        "keywords": ["var", "const", "let"]
+      },
+      {
+        "id": "M10",
+        "description": "Meaningless variable name temp",
+        "line": 30,
+        "severity": "info",
+        "keywords": ["temp", "meaningless", "poor name", "rename"]
+      },
+      {
+        "id": "M11",
+        "description": "Loose equality == instead of ===",
+        "line": 57,
+        "severity": "info",
+        "keywords": ["==", "===", "strict equality", "loose equality", "triple equals"]
+      },
+      {
+        "id": "M12",
+        "description": "TODO comment left in code",
+        "line": 4,
+        "severity": "info",
+        "keywords": ["todo", "TODO", "fix this"]
+      }
+    ]
+  }
