@@ -1,4 +1,4 @@
-import { Agent, run, Runner } from "@openai/agents";
+import { Agent, Runner, ModelBehaviorError } from "@openai/agents";
 import { OpenRouterModelProvider, MODEL } from "./provider.js";
 import {
   readUrlTool,
@@ -117,13 +117,21 @@ async function main() {
       tracingDisabled: true,
     });
   
-    const result = await runner.run(
-      agent,
-      `Evaluate the credibility of this source: ${url}`,
-      { maxTurns: 25 }
-    );
-  
-    console.log("\n" + result.finalOutput);
+    try {
+        const result = await runner.run(
+          agent,
+          `Evaluate the credibility of this source: ${url}`,
+          { maxTurns: 25 }
+        );
+        console.log("\n" + result.finalOutput);
+      } catch (err) {
+        if (err instanceof ModelBehaviorError) {
+          console.error(`⚠️  Model behavior error: ${err.message}`);
+          console.error("The model attempted to call a tool that does not exist. Try running again.");
+        } else {
+          throw err;
+        }
+      }
   }
 
 main().catch((err) => {
