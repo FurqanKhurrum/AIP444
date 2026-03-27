@@ -2,8 +2,6 @@
 
 Winter 2026 repo.
 
----
-
 ## Installation
 
 Install all dependencies from the repo root:
