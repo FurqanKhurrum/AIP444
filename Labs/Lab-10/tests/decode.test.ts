@@ -47,6 +47,42 @@ describe('parseDataURI', () => {
     const uri = 'data:image/png;base64,%%%';
     expect(() => parseDataURI(uri)).toThrow('invalid base64 content');
   });
+
+  it('accepts base64 without padding', () => {
+    const uri = 'data:image/png;base64,TQ';
+    const result = parseDataURI(uri);
+    expect(result.mediaType).toBe('image/png');
+    expect(result.base64).toBe('TQ');
+  });
+
+  it('accepts base64 with single padding', () => {
+    const uri = 'data:image/png;base64,TQ=';
+    const result = parseDataURI(uri);
+    expect(result.mediaType).toBe('image/png');
+    expect(result.base64).toBe('TQ=');
+  });
+
+  it('accepts minimal-length base64 content', () => {
+    const uri = 'data:image/png;base64,AA';
+    const result = parseDataURI(uri);
+    expect(result.mediaType).toBe('image/png');
+    expect(result.base64).toBe('AA');
+  });
+
+  it('throws for base64 content containing whitespace', () => {
+    const uri = 'data:image/png;base64,TQ==\n';
+    expect(() => parseDataURI(uri)).toThrow('invalid base64 content');
+  });
+
+  it('throws for leading whitespace before data prefix', () => {
+    const uri = ' data:image/png;base64,TQ==';
+    expect(() => parseDataURI(uri)).toThrow('missing data: prefix');
+  });
+
+  it('throws for non-base64 data URIs', () => {
+    const uri = 'data:image/png;charset=utf-8,abcd';
+    expect(() => parseDataURI(uri)).toThrow('missing base64 delimiter');
+  });
 });
 
 describe('decodeToBuffer', () => {

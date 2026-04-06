@@ -63,6 +63,31 @@ describe('encodeFile', () => {
     await expect(encodeFile(filePath)).rejects.toThrow('unsupported file extension');
   });
 
+  it('accepts uppercase file extensions', async () => {
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'data-uri-'));
+    const filePath = path.join(tmpDir, 'IMAGE.PNG');
+    await fs.copyFile(pngPath, filePath);
+    const result = await encodeFile(filePath);
+    expect(result.mediaType).toBe('image/png');
+    expect(result.category).toBe('image');
+  });
+
+  it('accepts mixed-case file extensions', async () => {
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'data-uri-'));
+    const filePath = path.join(tmpDir, 'photo.JpEg');
+    await fs.copyFile(jpgPath, filePath);
+    const result = await encodeFile(filePath);
+    expect(result.mediaType).toBe('image/jpeg');
+    expect(result.category).toBe('image');
+  });
+
+  it('throws for files without an extension', async () => {
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'data-uri-'));
+    const filePath = path.join(tmpDir, 'noextension');
+    await fs.writeFile(filePath, Buffer.from([1, 2, 3]));
+    await expect(encodeFile(filePath)).rejects.toThrow('unsupported file extension');
+  });
+
   it('throws for empty file', async () => {
     await expect(encodeFile(emptyPath)).rejects.toThrow('file is empty');
   });
