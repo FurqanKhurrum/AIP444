@@ -1,0 +1,42 @@
+{
+  "title": "Staff Mobile Software Engineer, iOS",
+  "company": "Gusto",
+  "location": "Toronto, ON, CAN",
+  "remoteStatus": "hybrid",
+  "requiredSkills": [
+    "iOS",
+    "Swift",
+    "Mobile Web Views",
+    "Push Notification Systems",
+    "Localization",
+    "Build Pipelines",
+    "Testing Automation",
+    "Release Pipelines",
+    "Ios Testing Frameworks"
+  ],
+  "preferredSkills": [],
+  "experienceYears": null,
+  "seniorityLevel": "senior",
+  "educationRequired": "not listed",
+  "salaryRange": {
+    "min": null,
+    "max": null,
+    "currency": null
+  },
+  "keyResponsibilities": [
+    "Design, build, test, and scale Gusto's native iOS app and supporting mobile web views.",
+    "Develop product features, platform components, push notification and localization services.",
+    "Maintain iOS infrastructure including build pipelines, testing automation, and release processes.",
+    "Architect, build, test, and refine Gusto’s native iOS app",
+    "Develop, iterate, and improve product features that integrate core business functions, work tools, value-added services, and financial products.",
+    "Collaborate closely with our product management, design, and partner teams to identify technical and customer pain points, brainstorm solutions, and then prototype, iterate, and launch those solutions.",
+    "Work cross-functionally with teams in product apps, identity, security, design systems, and infrastructure to deliver world-class experiences right into our customers' hands.",
+    "Build and scale essential services, such as push notification systems and localization features, to enhance app functionality."
+  ],
+  "companyResearch": {
+    "size": "1001-5000 employees",
+    "industry": "Software Development",
+    "recentNews": "Gusto is focused on serving small businesses with payroll, HR, and benefits solutions. Recent news highlights their commitment to supporting small business owners and their employees.",
+    "culture": "Supportive, innovative, and focused on creating seamless mobile experiences for small business owners and their teams. They emphasize collaboration, ownership, and staying current with the latest iOS technologies."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "title": "Software Engineer - Mobile",
+  "company": "Meitou Inc.",
+  "location": "North York, ON",
+  "remoteStatus": "onsite",
+  "requiredSkills": [
+    "JavaScript (ES6+)",
+    "React",
+    "Native iOS development (Swift/Objective-C)",
+    "Native Android development (Kotlin/Java)",
+    "REST",
+    "Mobile testing frameworks (Jest, Detox, Appium)",
+    "CI/CD pipelines (e.g., Fastlane, Jenkins)",
+    "State management libraries (e.g., Redux Toolkit, MobX, or Context API)",
+    "Mandarin"
+  ],
+  "preferredSkills": [
+    "TypeScript",
+    "Modern native UI frameworks (e.g., SwiftUI or Jetpack Compose)",
+    "Micro-frontend or module-based architectures",
+    "GraphQL",
+    "offline storage solutions",
+    "AI Powered Development"
+  ],
+  "experienceYears": 5,
+  "seniorityLevel": "senior",
+  "educationRequired": "not listed",
+  "salaryRange": {
+    "min": 66656.81,
+    "max": 104957.97,
+    "currency": "CAD"
+  },
+  "keyResponsibilities": [
+    "Lead the development, testing, and deployment of new features for our mobile application",
+    "Design and implement robust, scalable, and maintainable application architecture",
+    "Identify and resolve performance bottlenecks",
+    "Develop, integrate, and maintain custom native modules (iOS/Android) to extend React Native capabilities",
+    "Work closely with product managers, UX/UI designers, and backend engineers",
+    "Provide technical guidance and mentorship to junior team members"
+  ],
+  "companyResearch": {
+    "size": "not listed",
+    "industry": "financial startup",
+    "recentNews": "Based on search results, there is limited recent news specifically about Meitou Inc. The company focuses on providing U.S. stock analysis and insights to Chinese-speaking investors.",
+    "culture": "The company fosters a work culture where autonomy and ownership are paramount."
+  }
+}

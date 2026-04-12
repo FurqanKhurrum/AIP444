@@ -1,0 +1,26 @@
+{
+  "title": "Machine Learning Engineer",
+  "company": "Radformation",
+  "location": "not listed",
+  "remoteStatus": "remote",
+  "requiredSkills": [
+    "Machine Learning",
+    "Problem Solving"
+  ],
+  "preferredSkills": [],
+  "experienceYears": null,
+  "seniorityLevel": "not listed",
+  "educationRequired": "not listed",
+  "salaryRange": {
+    "min": 160000,
+    "max": 200000,
+    "currency": "USD"
+  },
+  "keyResponsibilities": [],
+  "companyResearch": {
+    "size": "not listed",
+    "industry": "Healthcare Technology",
+    "recentNews": "not listed",
+    "culture": "Fully remote work environment with virtual events and yearly retreats."
+  }
+}

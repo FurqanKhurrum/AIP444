@@ -1,0 +1,40 @@
+{
+  "title": "Junior RPA Developer",
+  "company": "Zena Tech, Inc.",
+  "location": "Toronto, ON",
+  "remoteStatus": "onsite",
+  "requiredSkills": [
+    "RPA tools (UiPath preferred; Automation Anywhere or Blue Prism)",
+    "UiPath concepts (selectors, workflows, sequences, data manipulation)",
+    "Bachelor's degree in Computer Science, Information Technology, or a related field"
+  ],
+  "preferredSkills": [
+    "UiPath Orchestrator",
+    "Scripting (VBA, Python, or JavaScript)",
+    "OCR tools (ABBYY or UiPath Document Understanding)",
+    "Startup or high-growth technology environment experience"
+  ],
+  "experienceYears": 1,
+  "seniorityLevel": "junior",
+  "educationRequired": "Bachelor's degree",
+  "salaryRange": {
+    "min": 55000,
+    "max": 70000,
+    "currency": "CAD"
+  },
+  "keyResponsibilities": [
+    "Design, develop, and maintain RPA bots",
+    "Automate repetitive, rules-based tasks",
+    "Document bot workflows, exception handling logic, and deployment procedures",
+    "Participate in user acceptance testing (UAT)",
+    "Collaborate with Business Analysts",
+    "Monitor bot performance, troubleshoot issues, and resolve failures",
+    "Identify opportunities to expand automation coverage"
+  ],
+  "companyResearch": {
+    "size": "not listed",
+    "industry": "Technology (AI drones, Drone-as-a-Service (DaaS), enterprise SaaS, and quantum computing)",
+    "recentNews": "not listed",
+    "culture": "Equal opportunity employer, committed to employment equity."
+  }
+}

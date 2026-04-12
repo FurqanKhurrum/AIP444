@@ -1,0 +1,41 @@
+{
+  "title": "Software Engineer",
+  "company": "1851 Labs (Stealth)",
+  "location": "Toronto",
+  "remoteStatus": "onsite",
+  "requiredSkills": [
+    "TypeScript",
+    "Node.js",
+    "React"
+  ],
+  "preferredSkills": [
+    "Convex",
+    "CDN",
+    "S3",
+    "large-scale image pipelines",
+    "Hyper-fast diffusion models",
+    "low-latency LLMs"
+  ],
+  "experienceYears": null,
+  "seniorityLevel": "not listed",
+  "educationRequired": "not listed",
+  "salaryRange": {
+    "min": 120000,
+    "max": 180000,
+    "currency": "CAD"
+  },
+  "keyResponsibilities": [
+    "Build and ship constantly",
+    "Own frontend + backend + infra",
+    "Build ultra-low-latency systems for real-time image creation",
+    "Put image models into production (hosting, routing, monitoring)",
+    "Build MLOps (rollouts, fallbacks, quality checks, cost + speed tuning)",
+    "Kill what doesn't work, double down on what does"
+  ],
+  "companyResearch": {
+    "size": "1-10 Employees",
+    "industry": "Artificial Intelligence, Consumer",
+    "recentNews": "Based on the search results, there is minimal publicly available information about '1851 Labs (Stealth)' outside of the Wellfound job posting. This suggests they are a relatively new or small company operating in stealth mode.",
+    "culture": "The job posting emphasizes a fast-paced, high-impact environment with significant ownership and rapid iteration. They value speed, user focus, and a willingness to kill ideas that don't work."
+  }
+}

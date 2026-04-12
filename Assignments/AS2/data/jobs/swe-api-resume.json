@@ -1,0 +1,40 @@
+{
+  "title": "Software Engineer - API",
+  "company": "CMIC",
+  "location": "Toronto, ON M3J 3K1",
+  "remoteStatus": "hybrid",
+  "requiredSkills": [
+    "Object-Oriented Programming Concepts",
+    "Design patterns",
+    "REST over HTTP",
+    "J2EE",
+    "Java",
+    "RDBS concepts",
+    "SQL",
+    "PLSQL"
+  ],
+  "preferredSkills": [],
+  "experienceYears": 3,
+  "seniorityLevel": "mid",
+  "educationRequired": "not listed",
+  "salaryRange": {
+    "min": 70000,
+    "max": 115000,
+    "currency": "CAD"
+  },
+  "keyResponsibilities": [
+    "Design, build, and maintain efficient, reusable, reliable and secure code",
+    "Improve tools and processes related to API development",
+    "Create documentation for the APIs, tools and processes that you work on",
+    "Review code written by others",
+    "Analyze problems and identify solutions",
+    "Modify existing APIs and create new APIs using both Oracle ADF BC REST as well as Jersey frameworks",
+    "Development at the database level to support the APIs"
+  ],
+  "companyResearch": {
+    "size": "not listed",
+    "industry": "Construction Software",
+    "recentNews": "not listed",
+    "culture": "CMIC is headquartered in Toronto and focuses on the Construction industry. They offer a comprehensive platform for construction companies. Benefits include wellness programs, social events, and RRSP matching. They are located on York University's campus and emphasize health and wellness."
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Software Developer (Entry Level)",
+  "company": "Konrad",
+  "location": "Toronto, ON",
+  "remoteStatus": "not listed",
+  "requiredSkills": [
+    "Computer Science",
+    "Software Engineering",
+    "Web Application Development",
+    "HTTP",
+    "DOM",
+    "SSL",
+    "Web Servers",
+    "Database Design",
+    "Querying",
+    "Optimization"
+  ],
+  "preferredSkills": [
+    "BrainStation courses"
+  ],
+  "experienceYears": null,
+  "seniorityLevel": "not listed",
+  "educationRequired": "Graduated from a Computer Science, Software Engineering, or similar program in a University or College",
+  "salaryRange": {
+    "min": 85000,
+    "max": 95000,
+    "currency": "CAD"
+  },
+  "keyResponsibilities": [
+    "Write maintainable, testable, and performant software",
+    "Participate in code review and performing extensive testing",
+    "Research new technology and tools",
+    "Communicate effectively with team members"
+  ],
+  "companyResearch": {
+    "size": "not listed",
+    "industry": "digital consultancy",
+    "recentNews": "Based on web searches, there is no recent news about Konrad that is relevant to this job posting.",
+    "culture": "Culture built on innovation and a commitment to creating best-in-class digital products. Hires exceptionally smart, analytical, and hard working people who are lifelong learners."
+  }
+}

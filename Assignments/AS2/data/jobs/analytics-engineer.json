@@ -1,0 +1,53 @@
+{
+  "title": "Analytics Engineer (LookML)",
+  "company": "KUBRA",
+  "location": "Mississauga, ON, Canada",
+  "remoteStatus": "hybrid",
+  "requiredSkills": [
+    "Data analysis",
+    "SQL",
+    "Usability",
+    "Analytics",
+    "LookML",
+    "Data modeling",
+    "Dashboard deployment",
+    "Data warehousing",
+    "ETL/ELT",
+    "KPI definition",
+    "Data governance",
+    "Data cataloging",
+    "Metric standardization"
+  ],
+  "preferredSkills": [
+    "Cloud platforms (AWS/Azure)",
+    "Python",
+    "ML/AI",
+    "Advanced certifications in analytics or BI tools"
+  ],
+  "experienceYears": 3,
+  "seniorityLevel": "not listed",
+  "educationRequired": "Undergraduate degree in a related discipline (e.g., Computer Science, Statistics, Analytics, Mathematics, Engineering, Economics) or equivalent experience.",
+  "salaryRange": {
+    "min": 90000,
+    "max": 110000,
+    "currency": "CAD"
+  },
+  "keyResponsibilities": [
+    "Own a curated catalog of business metrics and KPIs.",
+    "Design, build, and automate dashboards and reports in Power BI and Looker.",
+    "Conduct in-depth analysis to identify trends, drivers, and opportunities.",
+    "Automate recurring reporting processes.",
+    "Model, query, and transform data using SQL.",
+    "Collaborate with Data Science to support experiments and track ML/Al outcomes.",
+    "Partner with cross-functional teams.",
+    "Document analytical logic, KPI definitions, data lineage, and assumptions.",
+    "Implement QA for data assets.",
+    "Recommend and adopt improvements that enhance reliability, performance, or usability."
+  ],
+  "companyResearch": {
+    "size": "501 to 1000 Employees",
+    "industry": "Information Technology Support Services",
+    "recentNews": "KUBRA is a fast-growing company that delivers customer communications solutions to some of the largest utility, insurance, and government entities across North America. KUBRA offers billing and payments, mapping, mobile apps, proactive communications, and artificial intelligence solutions for customers. With more than 1.5 billion customer interactions annually, KUBRA services reach over 40% of households in the U.S. and Canada. KUBRA is an operating subsidiary of Hearst.",
+    "culture": "Equitable, inclusive, and inspiring workplace. Casual work environment, competitive compensation and a stellar benefits program. Values productivity, focus and self-motivation. Offers employee recognition programs, mental health support, refreshed beverage stations, and Perkopolis retail discounts."
+  }
+}
