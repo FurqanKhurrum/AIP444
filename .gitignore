@@ -138,6 +138,7 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-
+data/raw-postings/
+data/resume/
 chroma_db/
 node/
