@@ -1,0 +1,41 @@
+{
+  "hardSkills": [],
+  "softSkills": [],
+  "workExperience": [],
+  "education": [
+    {
+      "degree": "advanced diploma",
+      "institution": "Seneca Polytechnic"
+    }
+  ],
+  "certifications": [],
+  "projects": [
+    {
+      "name": "Unnamed Project",
+      "description": "Developed a hotel reservation system with admin and kiosk interfaces using JavaFX (FXML)\nApplied MVC architecture with DAO/service layers and SQLite for persistent storage\nImplemented booking, guest management, billing, feedback, logging, and validation",
+      "technologies": [
+        "Java",
+        "JavaFX",
+        "SQLite",
+        "MVC"
+      ]
+    },
+    {
+      "name": "Unnamed Project",
+      "description": "Built and deployed a RESTful microservice for managing multimedia fragments with full CRUD support\nUsed DynamoDB (metadata) and S3 (storage) with Dockerized deployment on AWS ECS\nImplemented CI/CD with GitHub Actions and secure authentication (Basic Auth & Cognito JWT)\nDeveloped a React UI with real-time format conversion (Markdown, images, JSON)",
+      "technologies": [
+        "Node.js",
+        "Express",
+        "AWS",
+        "Docker",
+        "React",
+        "DynamoDB",
+        "S3",
+        "ECS",
+        "Cognito",
+        "GitHub Actions"
+      ]
+    }
+  ],
+  "keywords": []
+}

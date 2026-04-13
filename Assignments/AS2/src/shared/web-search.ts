@@ -1,45 +1,31 @@
 // src/shared/web-search.ts
-// Tavily search tool — definition for OpenAI tool calling + executor.
-
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { config } from 'dotenv';
 import { logger } from './logger.js';
 
-// Resolve .env at monorepo root (4 levels up from src/shared/)
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const envPath = path.resolve(__dirname, '..', '..', '..', '..', '.env');
-config({ path: envPath });
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+config({ path: path.resolve(__dirname, '../../../.env') });
 
 if (!process.env.TAVILY_API_KEY) {
-  process.stderr.write('ERROR: TAVILY_API_KEY not found in .env file\n');
-  process.stderr.write(`Looking at: ${envPath}\n`);
+  process.stderr.write('❌ Error: TAVILY_API_KEY not found\n');
   process.exit(1);
 }
-
-// ─── Tool definition (OpenAI tools format) ───────────────────────────────────
 
 export const webSearchTool = {
   type: 'function' as const,
   function: {
     name: 'web_search',
-    description:
-      'Search the web for company info, recent news, job market trends, or technical documentation.',
+    description: 'Search the web for company info, recent news, job market trends, or technical documentation.',
     parameters: {
       type: 'object',
       properties: {
-        query: {
-          type: 'string',
-          description: 'The search query',
-        },
+        query: { type: 'string', description: 'The search query' },
       },
       required: ['query'],
     },
   },
 };
-
-// ─── Executor ────────────────────────────────────────────────────────────────
 
 interface TavilyResult {
   title:   string;
@@ -59,10 +45,10 @@ export async function runWebSearch(query: string): Promise<string> {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      api_key:        process.env.TAVILY_API_KEY,
+      api_key:      process.env.TAVILY_API_KEY,
       query,
-      max_results:    5,
-      search_depth:   'basic',
+      max_results:  5,
+      search_depth: 'basic',
     }),
   });
 
@@ -71,9 +57,8 @@ export async function runWebSearch(query: string): Promise<string> {
   }
 
   const data = (await response.json()) as TavilyResponse;
-  logger.debug(`Search returned ${data.results.length} results`);
+  logger.debug(`Search returned ${data.results.length} results, top: ${data.results[0]?.url ?? 'none'}`);
 
-  // Serialize results into a compact string for the LLM
   return data.results
     .map((r, i) => `[${i + 1}] ${r.title}\n${r.url}\n${r.content}`)
     .join('\n\n---\n\n');

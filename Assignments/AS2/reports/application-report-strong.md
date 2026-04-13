@@ -1,57 +1,58 @@
 # Application Report: Software Engineering Intern at Citco
 
 ## 1. Fit Assessment
-Fit Score: 75% — Good Fit
+Fit Score: 75% — Good fit
 
 ### Score Breakdown
-*   Python: Met
-*   Java: Met
-*   Javascript: Met
-*   HTML: Partial (implied through web technologies experience, should be explicitly added)
-*   SQL: Met
-*   web technologies: Met
-*   Pursuing CS degree: Gap
+*   Python: met
+*   Java: met
+*   Javascript: met
+*   HTML: gap
+*   SQL: met
+*   web technologies: met
+*   degree in Computer Science (3rd/4th year): partial
 
 ### Recommendation
-This role appears to be a great opportunity. With a few key adjustments to your resume and cover letter, you can showcase your skills and increase your chances of landing an interview. Your existing skills in Java, JavaScript, Python and SQL are valuable. Explicitly address your degree progress in your application and aim to highlight relevant projects.
+This internship aligns well with your skills. Highlight your project experience and enthusiasm for learning new web technologies. Tailor your resume to emphasize relevant skills to increase your chances.
 
 ---
 
 ## 2. Resume Adaptation
-*   **Explicitly mention HTML:** While "web technologies" is on your resume, adding HTML ensures the ATS picks it up. Create a skills section and list all frameworks.
-*   **Add degree information:** Even if you're still pursuing your degree, add the degree name to the education section. Include your expected graduation date. If you're transferring from your current advanced diploma to complete a degree, mention this clearly.
-*   **Add a personal projects section:** List relevant projects in their own section to increase findability on your resume. Be sure these projects use the skills mentioned in the job posting.
+*   **Add "HTML" to your hard skills section.** While basic, its explicit inclusion addresses a listed requirement.
+*   **In your education section, specify your current year of study** (e.g., "Advanced Diploma, Seneca Polytechnic, Year 2 of 3"). This directly addresses the "3rd or 4th year" requirement.
+*   **Expand on your projects:** For your Fragments API project, add explicit references to technologies that could be considered web technologies as mentioned in the job description such as RESTful API and related tooling.
+*   **Add Coursework:** List relevant coursework from your diploma within your education section (e.g., "Data Structures and Algorithms", "Database Management", "Web Development").
 
 ---
 
 ## 3. Cover Letter Guidance
-*   **Highlight your project experience:** Since this is an internship, emphasize personal projects and academic work that demonstrates your ability to design, implement, and test software. Mention the technologies you used (e.g., Python, Java, JavaScript).
-*   **Degree Pursuit Focus:** Directly address the "pursuing a degree" requirement and your expected graduation timeframe. If you are in the process of completing the degree, emphasize that you are taking steps to meet this requirement, and outline the courses or any other relevant experience you have gained.
-*   **Enthusiasm for Agile:** Express your understanding of, and enthusiasm for, agile methodologies by referencing specific examples of your participation in team activities.
-*   **Citco culture:** Mention inclusive culture to demonstrate you've done your research.
+*   **Emphasize your hands-on experience with cloud technologies (AWS)**, linking it to Citco's focus on cloud-native solutions. Quantify your AWS experience if possible (e.g., "reducing infrastructure costs by X%").
+*   **Highlight your collaboration and communication skills** evident in your project work. Refer to specific instances where you contributed to team sprints or presented findings.
+*   **Express enthusiasm for Citco's inclusive culture** and connect it to your collaborative approach to software development.
+*   **Address the lack of HTML proficiency head-on:** Briefly acknowledge it and state your eagerness to learn and contribute to web-related tasks.
 
 ---
 
 ## 4. Interview Prep
 ### Likely Questions
-*   Tell me about a time you worked on a team to solve a complex problem.
-*   Describe a project where you had to learn a new technology quickly.
-*   What are some of your favorite web technologies, and why?
-*   Explain your experience with unit and system testing.
-*   Why are you interested in Citco?
+*   Describe your experience with Python, Java, and JavaScript, and how you've used them in projects.
+*   Tell us about your experience with AWS, DynamoDB and your Fragments API project.
+*   Walk us through your approach to designing and implementing automated tests.
+*   How do you stay up-to-date with new web technologies?
+*   Describe a time you had to learn a new technology quickly.
 
 ### Topics to Brush Up On
-*   Agile/Scrum methodologies
-*   Cloud computing concepts (especially AWS fundamentals)
-*   Software testing principles
+*   HTML fundamentals – focus on semantic HTML and basic structure.
+*   Agile development methodologies (Scrum, Kanban).
+*   Common web security vulnerabilities (OWASP Top Ten).
 
 ### Company Research Points
-*   Citco's services in fund administration, corporate governance, and asset services.
-*   Citco's technology stack (research articles/profiles -- although they may not be public, look for anything you can find).
-*   Citco's commitment to diversity and inclusion.
+*   Citco's specific services within fund services, corporate governance, and asset services.
+*   Recent technology initiatives or announcements at Citco.
+*   Citco's commitment to diversity and inclusion initiatives.
 
 ### Talking Points (connecting your experience to their needs)
-*   "I'm eager to contribute to Citco's cloud-native solutions, leveraging my AWS experience gained from personal projects."
-*   "My experience with [specific project] demonstrates my ability to design and implement automated unit and system testing, which I believe is crucial for delivering high-quality software."
-*   "I am very excited to apply my knowledge and skills in a collaborative environment as emphasized in the job description."
-*   "I'm familiar with Agile, and I understand the importance of participating in stand-ups, sprint planning, and retrospectives on an engineering time."
+*   "I'm particularly drawn to Citco's commitment to cloud-native solutions, and my experience deploying Dockerized applications on AWS ECS aligns perfectly with that focus."
+*   "My Fragments API project demonstrates my ability to rapidly learn and apply new technologies, like DynamoDB and React, to deliver impactful solutions."
+*   "I'm a strong believer in collaborative, agile development practices, and I'm excited about the opportunity to contribute actively to sprint planning, daily scrums, and retrospectives."
+*   "While my formal HTML experience is limited, I'm eager to expand my skills. I've started familiarizing myself with best practices in basic HTML recently in preparation for roles like this one"

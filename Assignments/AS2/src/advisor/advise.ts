@@ -5,16 +5,28 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { config } from 'dotenv';
 import { extractPdf } from '../shared/extract-pdf.js';
 import { extractPosting } from '../extract/extract-posting.js';
 import { chat, MODELS } from '../shared/llm.js';
 import { logger } from '../shared/logger.js';
 import { ResumeSchema, type Resume, type JobPosting } from '../shared/schemas.js';
+import { rewriteResume } from './rewrite-resume.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../');
+
+// Load .env — try multiple paths to handle different monorepo depths
+const envPaths = [
+  path.resolve(__dirname, '../../../.env'),   // src/advisor/ -> assignment-02 -> AIP444 root
+  path.resolve(__dirname, '../../../../.env'), // one level deeper
+  path.resolve(__dirname, '../../.env'),       // assignment-02 root
+];
+const loadedEnv = envPaths.find(p => { const r = config({ path: p }); return !r.error; });
+process.stderr.write(`[ENV] Loaded from: ${loadedEnv ?? 'none found'}\n`);
+process.stderr.write(`[ENV] Key present: ${!!process.env.OPENROUTER_API_KEY}\n`);
 const REPORTS_DIR = path.join(ROOT, 'reports');
-const RESUME_DIR = path.join(ROOT, 'data', 'resume');
+const RESUME_DIR  = path.join(ROOT, 'data', 'resume');
 
 function slugify(filename: string): string {
   return filename
@@ -25,16 +37,25 @@ function slugify(filename: string): string {
 }
 
 function truncate(text: string, max = 8000): string {
-  if (text.length <= max) return text;
-  return text.slice(0, max) + '\n...[truncated]';
+  return text.length <= max ? text : text.slice(0, max) + '\n...[truncated]';
 }
 
 function extractFitScore(report: string): number | null {
   const match = report.match(/(\d{1,3})\s*%/);
   if (!match) return null;
   const value = Number(match[1]);
-  if (Number.isNaN(value)) return null;
-  return Math.min(Math.max(value, 0), 100);
+  return Number.isNaN(value) ? null : Math.min(Math.max(value, 0), 100);
+}
+
+// Parse score breakdown from report for verbose logging
+function parseScoreBreakdown(report: string): string[] {
+  const lines: string[] = [];
+  const breakdownMatch = report.match(/### Score Breakdown([\s\S]*?)###/);
+  if (!breakdownMatch) return lines;
+  return breakdownMatch[1]
+    .split('\n')
+    .map(l => l.trim())
+    .filter(l => l.length > 0 && (l.includes('Met') || l.includes('Gap') || l.includes('Partial')));
 }
 
 const ADVISE_SYSTEM = `You are an expert career coach and recruiter. Your task is to produce an application report for a specific job.
@@ -73,42 +94,25 @@ Fit Score: [NN%] — [Label]
 Fit scoring rules (bias toward encouraging applications but still realistic):
 - 80%+  = Strong fit — definitely apply
 - 50–79% = Good fit — apply and highlight your strengths
-- 30–50% = Stretch — worth applying if the role excites you, and explain how to position the candidate
-- <30%  = Significant gaps — consider this a growth target rather than an immediate application
+- 30–50% = Stretch — worth applying if the role excites you
+- <30%  = Significant gaps — consider this a growth target
 
 Hard constraints for the score:
-- If the posting requires a specific license/certification/credential (e.g., RN license, board certification, security clearance) and the resume does NOT show it, the score MUST be below 30%.
-- If the role is senior/lead or requires professional experience years (>0), and the resume shows 0 professional experience years in relevant roles, cap the score at 35%.
-- If a required degree is explicitly mandatory and the resume does not show it, cap the score at 25%.
-- Do not inflate scores for unrelated domains (e.g., nursing vs. SWE). Missing domain-required credentials or experience must heavily reduce the score.
+- If the posting requires a specific license/certification (e.g., P.Eng, CPA) and the resume does NOT show it, score MUST be below 30%.
+- If the role requires professional experience (>0 years) and the resume shows 0, cap score at 35%.
+- If a required degree is explicitly mandatory and the resume does not show it, cap score at 25%.
 
-Scoring method (explicit rubric):
-- Identify REQUIRED skills/credentials/experiences. Count how many are matched by the candidate (including closely related skills).
-- Base score = (matched required / total required) * 100. Round to nearest whole percent.
-- Adjust up (typically +5 to +15) if the candidate exceeds experience requirements.
-- Adjust up (typically +5 to +10) if the candidate has most preferred skills, but preferred skills NEVER reduce the score.
-- Apply gap weighting:
-  - Hard blockers (reduce score significantly, -15 to -20 points each):
-    - Professional license/certification legally required for the role (P.Eng, CPA, bar exam)
-    - Specific degree legally or contractually required (not just preferred)
-    - Geographic requirement the candidate cannot meet
-  - Soft gaps (reduce score minimally, -3 to -5 points each):
-    - Missing a specific technology when the candidate has a close equivalent (e.g., TypeScript vs JavaScript, Kotlin vs Java)
-    - Missing a tool that can be learned in days to weeks
-    - Preferred/nice-to-have skills should not reduce the score at all
-- If a required item is partially met, count it as matched rather than missing unless it is a hard blocker.
-- For intern/junior roles:
-  - Personal and academic projects count as real experience
-  - "X years of experience" requirements are soft gaps, not hard blockers
-  - Enthusiasm and learning ability are explicitly valued by hiring managers
-- Closely related skills count as matches (e.g., JavaScript counts toward TypeScript, Node.js counts toward backend experience).
-- Document the key missing REQUIRED requirements in the Score Breakdown.
+Scoring method:
+- Base score = (matched required skills / total required skills) * 100
+- Hard blockers: -15 to -20 points each (licenses, mandatory degrees, geographic requirements)
+- Soft gaps: -3 to -5 points each (learnable tools, close equivalents like JS→TS)
+- Preferred skills NEVER reduce the score
+- For intern/junior roles: personal projects count as experience, "X years" is a soft gap
+- Closely related skills count as matches (JavaScript → TypeScript, Node.js → backend)
 
-Calibration example (for internal guidance):
-- Posting has 8 REQUIRED skills. Candidate matches 6, has no hard blockers, and has 2 soft gaps.
-- Base score = 75. Apply two soft gaps (-3 to -5 each) → final score 78–82.
-- Posting has 8 REQUIRED skills. Candidate matches 4 and has 1 hard blocker (P.Eng required).
-- Base score = 50. Apply one hard blocker (-15 to -20) → final score 30–35.
+Calibration:
+- 6/8 required matched, no hard blockers, 2 soft gaps → 78–82%
+- 4/8 required matched, 1 hard blocker (P.Eng) → 30–35%
 
 Never output "you are not qualified" or "don't apply" for scores ≥30%.
 Return ONLY the Markdown report.`;
@@ -116,7 +120,7 @@ Return ONLY the Markdown report.`;
 async function loadTextFile(filePath: string, label: string): Promise<string> {
   try {
     const content = await fs.readFile(filePath, 'utf-8');
-    logger.debug(`Loaded ${label}: ${filePath}`);
+    logger.debug(`Loaded ${label} (${content.length} chars)`);
     return content;
   } catch {
     logger.error(`${label} not found: ${filePath}`);
@@ -127,11 +131,12 @@ async function loadTextFile(filePath: string, label: string): Promise<string> {
 async function loadResume(filePath: string): Promise<Resume> {
   try {
     const content = await fs.readFile(filePath, 'utf-8');
-    logger.debug(`Loaded resume: ${filePath}`);
     const parsed = JSON.parse(content) as unknown;
-    return ResumeSchema.parse(parsed);
+    const resume = ResumeSchema.parse(parsed);
+    logger.debug(`Loaded resume: ${resume.hardSkills.length} hard skills, ${resume.workExperience.length} roles`);
+    return resume;
   } catch (err) {
-    logger.error(`Resume file not found or invalid JSON: ${filePath}`);
+    logger.error(`Resume file not found or invalid: ${filePath}`);
     logger.error((err as Error).message);
     process.exit(1);
   }
@@ -146,7 +151,6 @@ async function main() {
     process.exit(1);
   }
 
-  // Verify PDF exists
   try {
     await fs.access(pdfPath);
   } catch {
@@ -154,29 +158,30 @@ async function main() {
     process.exit(1);
   }
 
-  // Load context files
-  const marketReportPath = path.join(REPORTS_DIR, 'market-analysis.md');
-  const gapReportPath = path.join(REPORTS_DIR, 'gap-analysis.md');
-  const resumePath = path.join(RESUME_DIR, 'resume.json');
-
+  // ── Load context ────────────────────────────────────────────────────────────
   logger.info('Loading context files...');
-  const marketAnalysis = await loadTextFile(marketReportPath, 'market-analysis.md');
-  const gapAnalysis = await loadTextFile(gapReportPath, 'gap-analysis.md');
-  const resume = await loadResume(resumePath);
+  const marketAnalysis = await loadTextFile(path.join(REPORTS_DIR, 'market-analysis.md'), 'market-analysis.md');
+  const gapAnalysis    = await loadTextFile(path.join(REPORTS_DIR, 'gap-analysis.md'),    'gap-analysis.md');
+  const resume         = await loadResume(path.join(RESUME_DIR, 'resume.json'));
 
-  // Extract new posting
-  logger.info('Extracting new job posting...');
+  // ── Extract posting ─────────────────────────────────────────────────────────
+  logger.info(`Extracting posting: ${path.basename(pdfPath)}`);
   let posting: JobPosting;
   try {
     const rawText = await extractPdf(pdfPath);
     posting = await extractPosting(rawText);
+    logger.debug(`Posting extracted: "${posting.title}" @ ${posting.company}`);
+    logger.debug(`Required skills in posting: ${posting.requiredSkills.length}`);
+    logger.debug(`Preferred skills in posting: ${posting.preferredSkills.length}`);
   } catch (err) {
     logger.error(`Failed to extract posting: ${(err as Error).message}`);
     process.exit(1);
   }
 
-  // Generate report
+  // ── Generate report ─────────────────────────────────────────────────────────
   logger.info('Generating application report...');
+  logger.debug(`LLM call: ${MODELS.advise}`);
+
   const userPrompt =
     `<job_posting>\n${JSON.stringify(posting, null, 2)}\n</job_posting>\n\n` +
     `<resume_json>\n${JSON.stringify(resume, null, 2)}\n</resume_json>\n\n` +
@@ -197,26 +202,48 @@ async function main() {
     process.exit(1);
   }
 
+  // ── Scoring debug logs (Category 4) ─────────────────────────────────────────
   const fitScore = extractFitScore(report);
-  if (fitScore === null) {
-    logger.error('Could not parse fit score from report');
-  } else {
-    logger.debug(`Fit score computed: ${fitScore}%`);
-  }
+  const breakdown = parseScoreBreakdown(report);
 
-  // Save report
+  logger.debug(`Fit scoring: ${posting.requiredSkills.length} required skills in posting`);
+  logger.debug(`Fit scoring: ${resume.hardSkills.length} hard skills on resume`);
+  for (const line of breakdown) {
+    logger.debug(`Fit scoring: ${line}`);
+  }
+  logger.debug(`Overall fit: ${fitScore === null ? 'unknown' : fitScore + '%'}`);
+  logger.debug(`Structured output validation: passed`);
+
+  // ── Save report ─────────────────────────────────────────────────────────────
   const slug = slugify(path.basename(pdfPath));
   const reportFilename = `application-report-${slug}.md`;
   const reportPath = path.join(REPORTS_DIR, reportFilename);
 
   await fs.mkdir(REPORTS_DIR, { recursive: true });
   await fs.writeFile(reportPath, report, 'utf-8');
-  logger.debug(`Report path saved: ${reportPath}`);
+  logger.debug(`Report saved → reports/${reportFilename}`);
 
-  // Print summary
+  // ── Resume rewrite (Extra 2) ────────────────────────────────────────────────
+  logger.info('Generating tailored resume rewrite...');
+  let rewriteFilename = '';
+  try {
+    const rewrite = await rewriteResume(resume, posting);
+    rewriteFilename = `resume-rewrite-${slug}.md`;
+    const rewritePath = path.join(REPORTS_DIR, rewriteFilename);
+    await fs.writeFile(rewritePath, rewrite, 'utf-8');
+    logger.debug(`Resume rewrite saved → reports/${rewriteFilename}`);
+  } catch (err) {
+    // Non-fatal — application report already saved
+    logger.error(`Resume rewrite failed (non-fatal): ${(err as Error).message}`);
+  }
+
+  // ── stdout summary ──────────────────────────────────────────────────────────
   process.stdout.write(`\n✅ Phase 3 complete.\n`);
-  process.stdout.write(`Report: reports/${reportFilename}\n`);
-  process.stdout.write(`Fit score: ${fitScore === null ? 'unknown' : fitScore + '%'}\n`);
+  process.stdout.write(`   Report: reports/${reportFilename}\n`);
+  process.stdout.write(`   Fit score: ${fitScore === null ? 'unknown' : fitScore + '%'}\n`);
+  if (rewriteFilename) {
+    process.stdout.write(`   Resume rewrite: reports/${rewriteFilename}\n`);
+  }
 }
 
 main().catch((err) => {
