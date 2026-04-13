@@ -22,7 +22,7 @@ const REPORTS_DIR = path.join(ROOT, 'reports');
 
 async function main() {
   // ─── Parse args ────────────────────────────────────────────────────────────
-  const args = process.argv.slice(2).filter((a) => a !== '--verbose');
+  const args = process.argv.slice(2).filter((a) => a !== '--verbose' && a !== '--');
   const resumePath = args[0];
 
   if (!resumePath) {

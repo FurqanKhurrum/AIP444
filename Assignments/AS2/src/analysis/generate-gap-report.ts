@@ -1,55 +1,50 @@
 // src/analysis/generate-gap-report.ts
-// Converts the structured GapAnalysis into a readable Markdown report.
 
 import { chat, MODELS } from '../shared/llm.js';
 import { logger } from '../shared/logger.js';
 import type { GapAnalysis, Resume } from '../shared/schemas.js';
 
-const SYSTEM_PROMPT = `You are a career coach writing a gap analysis report for a job seeker.
+// Strong persona here — this is a writing/alignment task.
+// Per PRISM research: personas genuinely help for alignment-dependent tasks like writing.
+const SYSTEM_PROMPT = `You are an encouraging and practical career coach writing a gap analysis report.
+Your tone is motivating and direct. You give specific, actionable advice — not platitudes.
+The candidate is actively job searching and needs real guidance they can act on today.
 
-You will receive structured gap analysis data. Convert it into a clear, motivating, and actionable Markdown report.
+Write the report in this exact Markdown format:
 
-Format:
 # Resume Gap Analysis Report
 
 ## ✅ Your Strengths
-(List each strength as a bullet. Be specific and confident.)
+(One bullet per strength. Be specific and confident — e.g. "5+ years of TypeScript across 3 roles")
 
-## 🎯 Skill Gaps (Triaged by Effort)
+## 🎯 Skill Gaps by Effort
 
-### ⚡ Quick Wins (Days)
-(Gaps the candidate can address immediately — wording changes, skills they have but didn't list)
+### ⚡ Quick Wins (Do this week)
+(Skills likely already possessed but not listed, or just a wording change on the resume)
 
-### 📅 Short-Term (Days to 2 Weeks)
+### 📅 Short-Term (Days to 2 weeks)
 (Tutorials, small projects, free certifications)
 
-### 🔧 Medium-Term (Weeks to Months)
-(Learning new frameworks, building portfolio projects)
+### 🔧 Medium-Term (Weeks to months)
+(New frameworks, portfolio projects, paid courses)
 
-### 🏗️ Long-Term (Months to Years)
-(Degrees, certifications requiring significant study, years of experience)
+### 🏗️ Long-Term (Months to years)
+(Degrees, deep experience, significant certifications)
 
-For each gap include the action item on the same line.
+For each gap: name the skill and include the specific action on the same line.
 
-## 💎 Your Unique Value
-(Things that differentiate you from other candidates)
+## 💎 What Makes You Stand Out
+(Unique value that differentiates this candidate from others in the market)
 
-## 📋 Recommended Priority Order
-(Top 5 things to tackle first, with brief rationale)
+## 📋 Top 5 Priorities
+(The 5 highest-impact things to tackle first, ranked, with a one-sentence rationale each)`;
 
-Keep the tone encouraging and practical. This person is actively job searching.`;
-
-export async function generateGapReport(
-  gaps: GapAnalysis,
-  resume: Resume,
-): Promise<string> {
+export async function generateGapReport(gaps: GapAnalysis, _resume: Resume): Promise<string> {
   logger.debug('Generating gap report...');
 
-  const report = await chat(
+  return chat(
     MODELS.analyze,
     SYSTEM_PROMPT,
-    `<gap_analysis>\n${JSON.stringify(gaps, null, 2)}\n</gap_analysis>\n\n<candidate_name>${resume.workExperience[0]?.company ?? 'Candidate'}</candidate_name>\n\nGenerate the gap analysis report.`,
+    `<gap_analysis>\n${JSON.stringify(gaps, null, 2)}\n</gap_analysis>\n\nWrite the gap analysis report.`,
   );
-
-  return report;
 }

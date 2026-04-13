@@ -55,13 +55,13 @@ export const ResumeSchema = z.object({
     highlights:    z.array(z.string()).default([]),
   })).default([]),
   education: z.array(z.object({
-    degree:      z.string(),
-    institution: z.string(),
+    degree:      z.string().nullable().transform(v => v ?? 'Unknown Degree'),
+    institution: z.string().nullable().optional().transform(v => v ?? 'Unknown Institution'),
   })).default([]),
   certifications: z.array(z.string()).default([]),
   projects: z.array(z.object({
-    name:         z.string(),
-    description:  z.string(),
+    name:         z.string().nullable().optional().transform(v => v ?? 'Unnamed Project'),
+    description:  z.string().nullable().optional().transform(v => v ?? ''),
     technologies: z.array(z.string()).default([]),
   })).default([]),
   keywords: z.array(z.string()).default([]),
@@ -73,7 +73,7 @@ export type Resume = z.infer<typeof ResumeSchema>;
 
 export const GapSchema = z.object({
   skill:     z.string(),
-  frequency: z.number(),
+  frequency: z.union([z.number(), z.string().transform((s) => { const n = parseFloat(s); return isNaN(n) ? 0 : n; })]),
   level:     z.enum(['quick-win', 'short-term', 'medium-term', 'long-term']),
   action:    z.string(),
 });

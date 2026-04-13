@@ -1,0 +1,68 @@
+{
+  "hardSkills": [
+    "Java",
+    "JavaScript",
+    "Python",
+    "SQL",
+    "C++",
+    "JavaFX",
+    "React.js",
+    "Next.js",
+    "Node.js",
+    "Express.js",
+    "Spring Boot",
+    "OpenCV",
+    "fastAPI",
+    "PostgreSQL",
+    "MongoDB",
+    "SQLite",
+    "DynamoDB",
+    "Oracle SQL",
+    "Git",
+    "GitHub",
+    "Vercel",
+    "AWS (EC2, ECS, ECR, Cognito)",
+    "Docker",
+    "Maven",
+    "Jira"
+  ],
+  "softSkills": [
+    "Project management",
+    "Collaboration",
+    "UI/UX Design"
+  ],
+  "workExperience": [],
+  "education": [
+    {
+      "degree": "advanced diploma",
+      "institution": "Seneca Polytechnic"
+    }
+  ],
+  "certifications": [],
+  "projects": [],
+  "keywords": [
+    "Full-stack development",
+    "Cloud deployment",
+    "CI/CD pipelines",
+    "Requirements gathering",
+    "Risk analysis",
+    "Agile environments",
+    "Scalable solutions",
+    "Secure solutions",
+    "MVC Architecture",
+    "RESTful API Development",
+    "GitHub Actions",
+    "Cloud Deployment",
+    "Data Visualization",
+    "Robotics Programming",
+    "Fragments API",
+    "Microservice",
+    "CRUD",
+    "ECS",
+    "Cognito JWT",
+    "S3",
+    "JDBC",
+    "DAO/service layers",
+    "Object-Oriented"
+  ]
+}

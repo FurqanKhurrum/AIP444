@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
       "market": "tsx src/extract/market.ts",
-      "gaps": "tsx src/analysis/gaps.ts --",
+      "gaps": "tsx src/analysis/gaps.ts",
       "advise": "tsx src/advisor/advise.ts"
     },
     "dependencies": {
